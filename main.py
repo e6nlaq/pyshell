@@ -7,6 +7,8 @@
 import os
 import socket
 import getpass
+import pathlib
+
 import platform
 
 # Local Import
@@ -48,7 +50,18 @@ def main() -> None:
 
             print(Color.GREEN + Color.BOLD + " ".join(files_dir))
             print(Color.RESET + Color.BLUE + " ".join(files_file))
+        elif func == "touch":
+            p = pathlib.Path(com[1])
+            p.touch()
+        elif func == "rm":
+            p = pathlib.Path(com[1])
 
+            try:
+                p.unlink()
+            except FileNotFoundError:
+                print(
+                    f"{Color.RED}Error{Color.RESET}: The specified file cannot be found"
+                )
         else:
             os.system(inp)
 
